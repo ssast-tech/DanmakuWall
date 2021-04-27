@@ -1,0 +1,70 @@
+{
+  "name": "danmu-client",
+  "version": "1.1.0",
+  "description": "Danmu client",
+  "main": "app/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "release": "build"
+  },
+  "build": {
+    "productName": "danmu-client",
+    "appId": "com.zsxsoft.danmu.client",
+    "compression": "maximum",
+    "extraFiles": [
+      "config.js"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "zip"
+      ]
+    },
+    "win": {
+      "target": [
+        "7z"
+      ]
+    },
+    "linux": {
+      "target": [
+        "zip"
+      ]
+    },
+    "directories": {
+      "buildResources": "resources"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zsxsoft/danmu-client.git"
+  },
+  "keywords": [
+    "danmu",
+    "danmaku"
+  ],
+  "author": "zsx <zsx@zsxsoft.com>, gerw <gerwang@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zsxsoft/danmu-client/issues"
+  },
+  "homepage": "https://github.com/zsxsoft/danmu-client",
+  "dependencies": {
+    "async": "^2.6.0",
+    "mysql": "^2.15.0",
+    "windows-caption-color": "0.0.6"
+  },
+  "devDependencies": {
+    "7zip-bin": "^2.2.3",
+    "babel-eslint": "^7.2.3",
+    "electron": "^1.8.4",
+    "electron-builder": "^19.22.1",
+    "eslint": "^4.5.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "node-gyp": "^3.6.2"
+  }
+}

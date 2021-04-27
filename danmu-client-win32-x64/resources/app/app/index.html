@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DANMU Client</title>
+    <style type="text/css">
+	canvas{
+		/**
+		 * In Electron, if an dragable object covered the border, 
+		 * then the window will not resizable.
+		 */
+		height: calc(100% - 2px);
+		width: calc(100% - 2px);
+		top: 1px;
+		left: 1px;
+		position: absolute;
+	}
+    
+    #message {
+        color: white;
+        font-size: 12px;
+    }
+    
+    .border {
+        border: 3px solid red;
+        height: calc(100% - 6px);
+        width: calc(100% - 6px);
+        top: 0;
+        position: absolute;
+        left: 0;
+    }
+    
+    html {
+        overflow: hidden;
+    }
+    </style>
+</head>
+
+<body style="background: black">
+    <div class="border"></div>
+    <p id="message">
+        大小和位置调整完毕后，按下回车或点击按钮开启弹幕。
+        <br/> 实际位置即黑框所在位置。
+        <br/>
+        <br/> 版本号：<span id="client-version"></span>
+        <br/> 弹幕客户端制作：<span id="client-author"></span>
+        <br/> GitHub: <span id="client-homepage"></span>
+        <br/>
+        <br/>
+        <br/> 按下F1，打开GitHub，获取最新的源代码及获得帮助。
+        <br/> 按下F12，打开调试器。
+    </p>
+    <canvas id="main-canvas" style="-webkit-app-region: drag"></canvas>
+</body>
+<script src="index.js"></script>
+
+</html>

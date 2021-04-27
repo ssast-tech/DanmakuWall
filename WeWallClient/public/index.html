@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>微信墙</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" href="/css/wall.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<script>
+function loadDoc() {
+  console.log("in");
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+	  var json = JSON.parse(this.responseText);
+	  if(json['new'] == 1){
+	    //$('#box1').css('top','25%');
+		//$('#box2').css('top','50%');
+		//$('#box3').css('top','75%');
+		animation(json);
+	  }
+	  else
+		setTimeout(loadDoc, 1000);
+	  return;
+    }
+  };
+  xhttp.open("GET", "/update", true);
+  xhttp.send();
+}
+
+loadDoc();
+
+function animation(json){
+	console.log(json);
+	
+	var parent = document.getElementById("container");
+
+	parent.innerHTML += '<div class="box" id="box4" style="top:100%;opacity:"0";">' +
+							'<div class="left img">' +
+								'<img src="head_img/' + json['userid'] + '.jpg" onerror="this.src=\'img/user.gif\'"></img>' +
+							'</div>' +
+							'<div class="right">' +
+								'<div class="name">' + json['username'] + '</div>' +
+								'<div class="content">'+ json['content'] +'</div>'
+							'</div>' +
+						'</div>'
+	
+	var box4 = document.getElementById('box4');
+	var box4_right = box4.getElementsByClassName('right')[0];
+	var box4_content = box4.getElementsByClassName('content')[0];
+	if(box4_content.scrollWidth > box4_content.clientWidth){
+		box4_right.removeChild(box4_content);
+		box4_right.innerHTML += '<marquee class="content" behavior="alternate">' + json['content'] + '</marquee>';
+	}
+	
+	$("#box1").animate({
+		top: '0',
+		opacity: '0'
+	},{
+	  duration:400,
+	  complete: function(){
+			var parent = document.getElementById("container");
+			var child = document.getElementById("box1");
+			parent.removeChild(child);
+	  }
+	});
+	
+	$("#box2").animate({
+		top: '25%'
+	},{
+	  duration:400,
+	  complete: function(){
+		$('#box2').attr('id','box1');
+		
+	  }
+	});
+	
+	$("#box3").animate({
+		top: '50%'
+	},{
+	  duration:400,
+	  complete: function(){
+		$('#box3').attr('id','box2');
+	  }
+	});
+	
+	$("#box4").animate({
+		opacity: "1",
+		top: "75%"
+	},{
+	  duration:400,
+	  complete: function(){
+		$('#box4').attr('id', 'box3');
+		setTimeout(loadDoc, 600);
+	  }
+	});
+}
+
+</script>
+<body style="background-image:url(img/wallbg.jpg);background-repeat:no-repeat;overflow-x:hidden;overflow-y:hidden; ">
+	<div id="ball" style="left:9%">
+		<img src="img/copy.png" height="100%" width="100%"></img>
+	</div>
+	<div id="ball" style="left:50%">
+		<img src="img/copy.png" height="100%" width="100%"></img>
+	</div>
+	<div id="logo">
+		<img src="img/logo.png" height="100%" width="100%"></img>
+	</div>
+	<div id="qrcode">
+		<img src='img/QRcode.jpg' height="100%" width="100%"></img>
+	</div>
+	<!-- <div id='info' align="center"> -->
+		<!-- <p>关注软小宣<br>后台回复上墙</p> -->
+		<!-- <p>WiFi密码<br>undefined</p> -->
+	<!-- </div> -->
+	<div id="container">
+		<div class="box" id="box1" style="top:25%;">
+			<div class="left img">
+				<img src='img/user.gif'></img>
+			</div>
+			<div class="right">
+				<div class="name">Undefined</div>
+				<div class="content">关注软小宣，后台回复上墙</div>
+			</div>
+		</div>
+		<div class="box" id="box2" style="top:50%;">
+			<div class="left img">
+				<img src='img/user.gif'></img>
+			</div>
+			<div class="right">
+				<div class="name">Undefined</div>
+				<div class="content">关注软小宣，后台回复上墙</div>
+			</div>
+		</div>
+		<div class="box" id="box3" style="top:75%;">
+			<div class="left img">
+				<img src='img/user.gif'></img>
+			</div>
+			<div class="right">
+				<div class="name">Undefined</div>
+				<div class="content">关注软小宣，后台回复上墙</div>
+			</div>
+		</div>
+		<div align="right" style="font-size:40px;color:white;position:fixed;bottom:10px;right:20px;">POWERED BY 软件学院科协</div>
+	</div>
+</body>
+</html>
