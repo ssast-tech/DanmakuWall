@@ -129,7 +129,7 @@ def hangup(request):
 def receive(request):
 	print('ggg')
 	try:
-		echostr = request.GET['echostr'];
+		echostr = request.GET['echostr']
 		if checkSignature(request.GET['signature'], request.GET['timestamp'], request.GET['nonce']):
 			return HttpResponse(echostr)
 		else:
@@ -151,11 +151,11 @@ def receive(request):
 			return response("对不起，暂不支持您发送的消息", username, FromUserName)
 		if content == '[Unsupported Message]' or content == '【收到不支持的消息类型，暂无法显示】':
 			return response("对不起，暂不支持您发送的消息", username, FromUserName)
-		content = content.replace('<', '< ');
-		content = content.replace('/:< @', '/:<@');
-		content = content.replace('/:< W>', '/:<W>');
-		content = content.replace('/:< O>', '/:<O>');
-		content = content.replace('/::< ', '/::<');
+		content = content.replace('<', '< ')
+		content = content.replace('/:< @', '/:<@')
+		content = content.replace('/:< W>', '/:<W>')
+		content = content.replace('/:< O>', '/:<O>')
+		content = content.replace('/::< ', '/::<')
 		if len(content) >= maxlen:
 			return response("对不起，您发送的消息过长", username, FromUserName)
 		mappings = None
@@ -169,10 +169,10 @@ def receive(request):
 		cursor.execute("INSERT INTO wewall_msg (content, userID, checked, danmu, wall) VALUES (%s, %s, true, false, false)" , (content, username))
 	#	cursor.execute("dele")
 		db.commit()
-		cursor.execute("SELECT * FROM userid WHERE userid = %s", username);
+		cursor.execute("SELECT * FROM userid WHERE userid = %s", username)
 		result = cursor.fetchone()
 		if not result:
-			cursor.execute("INSERT INTO userid (userid) VALUES(%s)", username);
+			cursor.execute("INSERT INTO userid (userid) VALUES(%s)", username)
 			db.commit()
 			cursor.execute("INSERT INTO usertoget (userid) VALUES(%s)", username)
 			db.commit()
@@ -183,8 +183,8 @@ def receive(request):
 
 def checkSignature(signature, timestamp, nonce):
 	print(timestamp)
-	sortlist = [token, timestamp, nonce];
-	sortlist.sort();
+	sortlist = [token, timestamp, nonce]
+	sortlist.sort()
 	sha = hashlib.sha1()
 	sha.update("".join(sortlist).encode('utf8'))
 	if sha.hexdigest() == signature:
