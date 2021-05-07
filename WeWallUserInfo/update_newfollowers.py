@@ -21,7 +21,7 @@ headers['Connection'] = 'keep-alive'
 url = 'https://mp.weixin.qq.com/cgi-bin/user_tag?action=get_user_list&token=%s&lang=zh_CN&begin_openid=%s&begin_create_time=%s'
 url_img = 'https://mp.weixin.qq.com/misc/getheadimg?fakeid=%s&token=%s&lang=zh_CN'
 
-db = pymysql.connect(config.database_ip, config.database_user, config.database_pwd, config.database_name, charset='utf8mb4')
+db = pymysql.connect(host=config.database_ip, user=config.database_user, password=config.database_pwd, database=config.database_name, charset='utf8mb4')
 cursor = db.cursor()
 
 turn = 1
